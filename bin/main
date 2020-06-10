@@ -1,0 +1,3 @@
+require_relative '../lib/job_app'
+
+JobApp.new
