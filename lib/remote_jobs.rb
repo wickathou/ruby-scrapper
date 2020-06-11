@@ -37,7 +37,7 @@ class RemoteJobs
   end
 
   def post_details?(id)
-    @current_search.css("tr.job-#{id}") && @current_search.css("tr.expand-#{id}") ? true : false
+    @current_search.css("tr.job-#{id}") && @current_search.css("tr.expand-#{id}")
   end
 
   def job_post_finder(language)
