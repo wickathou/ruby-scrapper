@@ -12,14 +12,12 @@ class RemoteJobs
   private
 
   def execution_mode(language)
-    begin
-      job_log(language)
-      language == 'exception' ? raise : @debug_message = 'Search complete'
-    rescue StandardError => e
-      puts e
-      puts 'Something went wrong, try again'
-      @debug_message = 'Exception catched'
-    end
+    job_log(language)
+    language == 'exception' ? raise : @debug_message = 'Search complete'
+  rescue StandardError => e
+    puts e
+    puts 'Something went wrong, try again'
+    @debug_message = 'Exception catched'
   end
 
   def language_jobs(language)

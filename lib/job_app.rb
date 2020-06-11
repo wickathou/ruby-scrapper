@@ -15,7 +15,9 @@ class JobApp
 
   def app_start(testing = nil)
     repeat = true
-    unless testing
+    if testing
+      testing_mode
+    else
       while repeat
         new_language
         new_search
@@ -23,8 +25,6 @@ class JobApp
         view_listings
         repeat = restart
       end
-    else
-      testing_mode
     end
     @debug_message = 'Thank you for using Job App'
   end
