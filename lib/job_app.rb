@@ -2,22 +2,36 @@ require_relative '../lib/remote_jobs'
 require 'tty-prompt'
 
 class JobApp
+  attr_reader :debug_message
+
   LANGUAGES = %w[ruby javascript ruby-on-rails java go].freeze
-  def initialize
+  def initialize(testing = nil)
     @job_listings = {}
-    app_start
+    app_start(testing)
+    puts @debug_message
   end
 
-  def app_start
+  private
+
+  def app_start(testing = nil)
     repeat = true
-    while repeat
-      new_language
-      new_search
-      system 'clear'
-      view_listings
-      repeat = restart
+    unless testing
+      while repeat
+        new_language
+        new_search
+        system 'clear'
+        view_listings
+        repeat = restart
+      end
+    else
+      testing_mode
     end
-    puts 'Thank you for using Job App'
+    @debug_message = 'Thank you for using Job App'
+  end
+
+  def testing_mode
+    @language = LANGUAGES[rand(0..4)]
+    new_search
   end
 
   def new_language

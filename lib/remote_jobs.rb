@@ -1,16 +1,24 @@
 require_relative '../lib/scrapper'
 
 class RemoteJobs
-  attr_reader :jobs, :job_ids
+  attr_reader :jobs, :job_ids, :debug_message
   include Scrapper
   def initialize(language)
     @jobs = []
     @job_ids = []
+    execution_mode(language)
+  end
+
+  private
+
+  def execution_mode(language)
     begin
       job_log(language)
+      language == 'exception' ? raise : @debug_message = 'Search complete'
     rescue StandardError => e
       puts e
       puts 'Something went wrong, try again'
+      @debug_message = 'Exception catched'
     end
   end
 
